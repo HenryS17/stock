@@ -7,7 +7,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 @Path("/stockservice")
@@ -44,7 +45,11 @@ public class stockservice {
 	// My secret post action to reset all data at the beginning of the year.
 	@POST
 	@Path("/initalldata")
-	public void Reset() {
+	public void reset() {
 		LOGGER.log(Level.INFO, "Do reset");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+	    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("StockJDBCTemplate");
+	    jdbcTempalte.reset();  
 	}
 }

@@ -22,7 +22,7 @@ public class SpStockDataImporter {
 		return (getStocks(symbols));
 	}
 	
-	private List<StockData> getStocks(String[] symbols) {
+	public List<StockData> getStocks(String[] symbols) {
 		List<StockData> list = new ArrayList<>();
 		
 		

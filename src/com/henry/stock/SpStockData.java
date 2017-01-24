@@ -7,8 +7,15 @@ public class SpStockData {
 	private String name;
 //	@JsonProperty("Sector")
 	private String sector;	
+	private float value;
 
 	
+	public float getValue() {
+		return value;
+	}
+	public void setValue(float value) {
+		this.value = value;
+	}
 	public String getSymbol() {
 		return symbol;
 	}
