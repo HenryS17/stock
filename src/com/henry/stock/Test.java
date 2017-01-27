@@ -19,19 +19,19 @@ public class Test {
 			String s = stock.toString();
 		//	System.out.println(s);
 			
-			ReadList updateList = new ReadList();
-			try {
-				SpStockData[] datas = updateList.readFile();
-				System.out.println(datas[0].toString());
-				System.out.println(datas[1].toString());
-				System.out.println(datas[2].toString());
-			}
-			catch(IOException e) {
-				System.out.println(e.toString());
-			}
-			
-			SpStockDataImporter sp = new SpStockDataImporter();
-			sp.getTopTen();
+//			ReadList updateList = new ReadList();
+//			try {
+//				SpStockData[] datas = updateList.readFile();
+//				System.out.println(datas[0].toString());
+//				System.out.println(datas[1].toString());
+//				System.out.println(datas[2].toString());
+//			}
+//			catch(IOException e) {
+//				System.out.println(e.toString());
+//			}
+//			
+//			SpStockDataImporter sp = new SpStockDataImporter();
+//			sp.getTopTen();
 			
 		}
 

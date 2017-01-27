@@ -1,11 +1,11 @@
 package com.henry.stock;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -42,12 +42,12 @@ public class StockJDBCTemplate implements DataDao {
 		beginOfYear.DAY_OF_MONTH = 1;
 		
 	    // Add new records
-		InputStream in = getClass().getResourceAsStream("/constituents.json");  
+		InputStream is = getClass().getResourceAsStream("/constituents.json");  
 	    ReadList readList = new ReadList();
 	    
 	    try {
 	    	int count = 20; // 20 records every time
-	    	SpStockData[] stockList = readList.readFile();	
+	    	SpStockData[] stockList = readList.readFile(is);	
 	    	SpStockDataImporter importer = new SpStockDataImporter();
 	    	int i = 0;
 	    	String[] symbols = new String[count];
@@ -60,7 +60,7 @@ public class StockJDBCTemplate implements DataDao {
 	    		if (i == (count -1)) {
 	    			List<StockData> stockDatas = importer.getStocks(symbols, beginOfYear, beginOfYear);
 	    			
-	    			for (stockData : stockDatas) {
+	    			for (StockData stockData : stockDatas) {
 				    	create(stock.getName(), stock.getValue());	
 	    			}
 			    	i = -1;

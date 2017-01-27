@@ -2,6 +2,7 @@ package com.henry.stock;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +18,7 @@ public class ReadList {
 	public ReadList() {
 		
 	}
-	public SpStockData[] readFile(FileInputStream fis) throws IOException {
+	public SpStockData[] readFile(InputStream fis) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 	//	SpStockData[] array = objectMapper.readValue(new File("C:\\Users\\Henry\\workspace\\Finance\\stock\\src\\com\\henry\\stock\\constituents - Copy.json"), SpStockData[].class);
