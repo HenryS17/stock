@@ -50,6 +50,6 @@ public class stockservice {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 	    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("StockJDBCTemplate");
-	    jdbcTempalte.reset();  
+	    jdbcTemplate.reset();  
 	}
 }

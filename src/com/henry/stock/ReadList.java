@@ -21,8 +21,6 @@ public class ReadList {
 	public SpStockData[] readFile(InputStream fis) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		
-	//	SpStockData[] array = objectMapper.readValue(new File("C:\\Users\\Henry\\workspace\\Finance\\stock\\src\\com\\henry\\stock\\constituents - Copy.json"), SpStockData[].class);
-	//	SpStockData[] array = objectMapper.readValue(new File("constituents.json"), SpStockData[].class);
 		SpStockData[] array = objectMapper.readValue(fis, SpStockData[].class);
 		
 		LOGGER.log(Level.INFO, "Total SP 500 number of read is " + Integer.toString(array.length));

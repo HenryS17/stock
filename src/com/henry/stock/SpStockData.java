@@ -2,20 +2,13 @@ package com.henry.stock;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+// This class is for data that come from the constituents.json file. It only has name, symbol and sector
 public class SpStockData {
 	private String symbol;
 	private String name;
 //	@JsonProperty("Sector")
 	private String sector;	
-	private float value;
-
 	
-	public float getValue() {
-		return value;
-	}
-	public void setValue(float value) {
-		this.value = value;
-	}
 	public String getSymbol() {
 		return symbol;
 	}
