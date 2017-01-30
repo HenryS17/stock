@@ -46,9 +46,9 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/YahooFinanceAPI-3.5.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/YahooFinanceAPI-3.5.0-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/YahooFinanceAPI-3.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Java/spring-framework-4.3.5.RELEASE/libs/spring-core-4.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Java/spring-framework-4.3.5.RELEASE/libs/spring-jdbc-4.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Java/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-core-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-jdbc-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="D:/HenryCode/Java/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="lib" path="D:/HenryCode/Java/JUnit/junit-4.10.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
