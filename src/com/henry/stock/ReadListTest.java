@@ -7,11 +7,11 @@ import java.io.IOException;
 import org.junit.Test;
 
 
-public class TestReadSp500 {
+public class ReadListTest {
 	@Test
 	public void test() {
 		try {
-			File file = new File("D:\\Users\\Henry\\My Code\\stock\\src\\com\\henry\\stock\\constituents.json");
+			File file = new File("C:\\Java\\My Code\\stock\\src\\com\\henry\\stock\\constituents.json");
 			FileInputStream fis = new FileInputStream(file);
 			ReadList reader = new ReadList();
 			SpStockData[] stocks = reader.readFile(fis);

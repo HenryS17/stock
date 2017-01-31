@@ -49,7 +49,7 @@ public class stockservice {
 		LOGGER.log(Level.INFO, "Do reset");
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-	    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("StockJDBCTemplate");
-	    jdbcTempalte.reset();  
+	    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("stockJDBCTemplate");
+	    jdbcTemplate.reset();  
 	}
 }

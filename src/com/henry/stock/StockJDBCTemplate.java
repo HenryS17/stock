@@ -1,5 +1,8 @@
 package com.henry.stock;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -16,14 +19,21 @@ public class StockJDBCTemplate implements DataDao {
 
 	@Override
 	public void setDataSource(DataSource ds) {
-		this.dataSource = dataSource;
+		this.dataSource = ds;
 	    this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 	
 	// Insert a new record
-	public void create(String name, float value) {
-		 String SQL = "insert into stock (name, value) values (?, ?)";
-		 jdbcTemplateObject.update( SQL, name, value);
+	public void create(StockData stockData) {
+		try {
+			 String SQL = "insert into stock (Symbol, Name, Price, PE, PEG, PriceToBook, ROE, EPS, PRiceToSale, Volumn, Sector, OneYearTarget) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			 jdbcTemplateObject.update( SQL, stockData.getSymbol(), stockData.getName(), stockData.getPrice(), stockData.getPe(),
+					 stockData.getPeg(), stockData.getPriceToBook(), stockData.getRoe(), stockData.getEps(), stockData.getPriceToSale(),
+					 stockData.getVolumn(), stockData.getSector(), stockData.getOneYearTarget());	
+		}
+		catch(Exception e) {
+			System.out.println(e.toString());
+		}
 	}
    
 	
@@ -32,21 +42,25 @@ public class StockJDBCTemplate implements DataDao {
 	@Override	
 	public void reset() {
 		// remove all data
-		String deleteAllSQL = "delete * from stock";
+		String deleteAllSQL = "delete from stock";
 	    jdbcTemplateObject.update(deleteAllSQL);
 		Calendar beginOfYear = Calendar.getInstance();
 		
 		// We use the data from the first day (actually the price of market close of previous year).new year day
 		// market is closed.
-		beginOfYear.MONTH = Calendar.JANUARY;
-		beginOfYear.DAY_OF_MONTH = 1;
+		beginOfYear.set(Calendar.MONTH, Calendar.JANUARY);
+		beginOfYear.set(Calendar.DAY_OF_MONTH, 1);
 		
-	    // Add new records
-		InputStream is = getClass().getResourceAsStream("/constituents.json");  
-	    ReadList readList = new ReadList();
+	    // Add new records		
 	    
 	    try {
 	    	int count = 20; // 20 records every time
+	    	
+	    	File file = new File("d:\\users\\henry\\My Code\\stock\\src\\com\\henry\\stock\\constituents.json");
+			FileInputStream is = new FileInputStream(file);
+//			InputStream is = getClass().getResourceAsStream("/constituents.json");  
+		    ReadList readList = new ReadList();
+		    
 	    	SpStockData[] stockList = readList.readFile(is);	
 	    	SpStockDataImporter importer = new SpStockDataImporter();
 	    	int i = 0;
@@ -58,16 +72,21 @@ public class StockJDBCTemplate implements DataDao {
 	    		sectors[i] = stock.getSector();
 	    		
 	    		if (i == (count -1)) {
-	    			List<StockData> stockDatas = importer.getStocks(symbols, beginOfYear, beginOfYear);
+	    			List<StockData> stockDatas = importer.getYearBegings(symbols);
 	    			
 	    			for (StockData stockData : stockDatas) {
-				    	create(stock.getName(), stock.getValue());	
+	    				fillSector(stockList, stockData);
+				    	create(stockData);	
 	    			}
 			    	i = -1;
 	    		}
 		    	++i;
 		    }
 	    
+	    }
+	    catch (FileNotFoundException fe) {	    
+	    	LOGGER.log(Level.SEVERE, "File not found");
+	    	LOGGER.log(Level.INFO, fe.toString());
 	    }
 	    catch (IOException e) {
 	    	LOGGER.log(Level.SEVERE, "Failure to read file or data");
@@ -77,7 +96,14 @@ public class StockJDBCTemplate implements DataDao {
 	    
 	}
 	
-	public void upateAll() {
+	private void fillSector(SpStockData[] stockList, StockData stockData) {
+		for (SpStockData spStockData : stockList) {
+			if (stockData.getSymbol().equals(spStockData.getSymbol())) {
+				stockData.setSector(spStockData.getSector());
+			}
+		}
+	}
+	public void updateAll() {
 		
 	}
 	
