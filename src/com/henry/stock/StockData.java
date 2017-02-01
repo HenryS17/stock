@@ -14,21 +14,21 @@ public class StockData {
 	private String name;
 	private String symbol;
 	private double price;
-	private double pe;
-	private double peg;
-	private double priceToBook;
-	private double roe;
-	private double eps;
-	private double priceToSale;
+	private Double pe;
+	private Double peg;
+	private Double priceToBook;
+	private Double roe;
+	private Double eps;
+	private Double priceToSale;
 	private Long volumn;
-	private double priceChange;
-	private double peChange;
-	private double pegChange;
-	private double pbChange;
-	private double epsChange;
-	private double psChange;
+	private Double priceChange;
+	private Double peChange;
+	private Double pegChange;
+	private Double pbChange;
+	private Double epsChange;
+	private Double psChange;
 	private String sector;
-	private double oneYearTarget;
+	private Double oneYearTarget;
 	
 	public double getPrice() {
 		return price;
@@ -36,40 +36,40 @@ public class StockData {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public double getPe() {
+	public Double getPe() {
 		return pe;
 	}
-	public void setPe(double pe) {
+	public void setPe(Double pe) {
 		this.pe = pe;
 	}
-	public double getPeg() {
+	public Double getPeg() {
 		return peg;
 	}
-	public void setPeg(double peg) {
+	public void setPeg(Double peg) {
 		this.peg = peg;
 	}
-	public double getPriceToBook() {
+	public Double getPriceToBook() {
 		return priceToBook;
 	}
-	public void setPriceToBook(double priceToBook) {
+	public void setPriceToBook(Double priceToBook) {
 		this.priceToBook = priceToBook;
 	}
-	public double getRoe() {
+	public Double getRoe() {
 		return roe;
 	}
-	public void setRoe(double roe) {
+	public void setRoe(Double roe) {
 		this.roe = roe;
 	}
-	public double getEps() {
+	public Double getEps() {
 		return eps;
 	}
-	public void setEps(double eps) {
+	public void setEps(Double eps) {
 		this.eps = eps;
 	}
-	public double getPriceToSale() {
+	public Double getPriceToSale() {
 		return priceToSale;
 	}
-	public void setPriceToSale(double priceToSale) {
+	public void setPriceToSale(Double priceToSale) {
 		this.priceToSale = priceToSale;
 	}
 	public Long getVolumn() {
@@ -78,40 +78,40 @@ public class StockData {
 	public void setVolumn(Long volumn) {
 		this.volumn = volumn;
 	}
-	public double getPriceChange() {
+	public Double getPriceChange() {
 		return priceChange;
 	}
-	public void setPriceChange(double priceChange) {
+	public void setPriceChange(Double priceChange) {
 		this.priceChange = priceChange;
 	}
-	public double getPeChange() {
+	public Double getPeChange() {
 		return peChange;
 	}
-	public void setPeChange(double peChange) {
+	public void setPeChange(Double peChange) {
 		this.peChange = peChange;
 	}
-	public double getPegChange() {
+	public Double getPegChange() {
 		return pegChange;
 	}
-	public void setPegChange(double pegChange) {
+	public void setPegChange(Double pegChange) {
 		this.pegChange = pegChange;
 	}
-	public double getPbChange() {
+	public Double getPbChange() {
 		return pbChange;
 	}
-	public void setPbChange(double pbChange) {
+	public void setPbChange(Double pbChange) {
 		this.pbChange = pbChange;
 	}
-	public double getEpsChange() {
+	public Double getEpsChange() {
 		return epsChange;
 	}
-	public void setEpsChange(double epsChange) {
+	public void setEpsChange(Double epsChange) {
 		this.epsChange = epsChange;
 	}
-	public double getPsChange() {
+	public Double getPsChange() {
 		return psChange;
 	}
-	public void setPsChange(double psChange) {
+	public void setPsChange(Double psChange) {
 		this.psChange = psChange;
 	}
 	public String getSector() {
@@ -134,10 +134,10 @@ public class StockData {
 		this.symbol = symbol;
 	}
 
-	public double getOneYearTarget() {
+	public Double getOneYearTarget() {
 		return oneYearTarget;
 	}
-	public void setOneYearTarget(double target) {
+	public void setOneYearTarget(Double target) {
 		this.oneYearTarget = target;
 	}
 	

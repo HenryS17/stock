@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -17,6 +19,7 @@ import yahoofinance.quotes.stock.StockStats;
 
 // APIs from http://financequotes-api.com/
 public class SpStockDataImporter {
+	private static final Logger LOGGER = Logger.getLogger(SpStockDataImporter.class.getName());
 
 	public List<StockData> getTopTen() {
 		String[] symbols = new String[6];
@@ -82,25 +85,32 @@ public class SpStockDataImporter {
 			}
 		}
 		catch(IOException e) {
-			System.out.println(e.getMessage());
+			LOGGER.log(Level.SEVERE, "Error at getting year begin data");
 		}
 		
 		return list;
 	}
 	
 	private void stockToStockData(String symbol, Stock stock, StockData stockData) {
-		StockQuote stockQuote = stock.getQuote();
-		StockStats stockStats = stock.getStats();
+		try {
+			StockQuote stockQuote = stock.getQuote();
+			StockStats stockStats = stock.getStats();
+			
+			stockData.setName(stock.getName());				
+			stockData.setSymbol(symbol);
+			stockData.setPe(stockStats.getPe() != null ? stockStats.getPe().doubleValue() : null);
+			stockData.setPeg(stockStats.getPeg() != null ? stockStats.getPeg().doubleValue() : null);
+			stockData.setEps(stockStats.getEps() != null ? stockStats.getEps().doubleValue() : null);
+			stockData.setRoe(stockStats.getROE() != null ? stockStats.getROE().doubleValue() : null);
+			stockData.setPriceToBook(stockStats.getPriceBook() != null ? stockStats.getPriceBook().doubleValue() : null);
+			stockData.setPriceToSale(stockStats.getPriceSales() != null ? stockStats.getPriceSales().doubleValue() : null);
+			stockData.setVolumn(stockQuote.getVolume());
+			stockData.setOneYearTarget(stockStats.getOneYearTargetPrice() != null ? stockStats.getOneYearTargetPrice().setScale(2, RoundingMode.HALF_UP).doubleValue() : null);	
+		}
+		catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "Fail to convert to StockData");
+			LOGGER.log(Level.INFO, stock.toString());
+		}
 		
-		stockData.setName(stock.getName());				
-		stockData.setSymbol(symbol);
-		stockData.setPe(stockStats.getPe().doubleValue());
-		stockData.setPeg(stockStats.getPeg().doubleValue());
-		stockData.setEps(stockStats.getEps().doubleValue());
-		stockData.setRoe(stockStats.getROE().doubleValue());
-		stockData.setPriceToBook(stockStats.getPriceBook().doubleValue());
-		stockData.setPriceToSale(stockStats.getPriceSales().doubleValue());
-		stockData.setVolumn(stockQuote.getVolume());
-		stockData.setOneYearTarget(stockStats.getOneYearTargetPrice().setScale(2, RoundingMode.HALF_UP).doubleValue());
 	}
 }

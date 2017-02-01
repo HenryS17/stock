@@ -24,7 +24,7 @@ public class StockJDBCTemplateTest {
 			testData.setPrice(105.05);
 			testData.setPriceToBook(1.22);
 			testData.setPriceToSale(123.11);
-			testData.setRoe(23);
+			testData.setRoe(23.0d);
 			testData.setSector("Technology");
 			testData.setVolumn(18379500L);
 			
