@@ -13,18 +13,26 @@ public class SpStockDataImporterTest {
 	@Test
 	public void test() {
 		try {
-			String[] symbols = {"FB", "GOOG", "DIS"};		
+			Calendar from = Calendar.getInstance();
+			from.add(Calendar.YEAR, -1);
+			from.set(Calendar.MONTH, Calendar.DECEMBER);
+			from.set(Calendar.DAY_OF_MONTH, 29);
+			Calendar to = Calendar.getInstance();
+			to.set(Calendar.MONTH, Calendar.JANUARY);
+			to.set(Calendar.DAY_OF_MONTH, 1);
 			
 			SpStockDataImporter importer = new SpStockDataImporter();
 			
-			List<StockData> data = importer.getYearBegings(symbols);
+			StockData data1 = importer.getYearBegings("FB", from, to);
+			StockData data2 = importer.getYearBegings("GOOG", from, to);
+			StockData data3 = importer.getYearBegings("DIS", from, to);
 			
-			assertTrue(data.get(1).getPrice() == 115.05);
-			assertTrue(data.get(1).getName() == "Facebook, Inc.");
-			assertTrue(data.get(0).getPrice() == 771.82	);
-			assertTrue(data.get(0).getName() == "Alphabet Inc.");
-			assertTrue(data.get(2).getPrice() == 104.22);
-			assertTrue(data.get(2).getName() == "The Walt Disney Company");
+			assertTrue(data1.getPrice() == 115.05);
+			assertTrue(data1.getName() == "Facebook, Inc.");
+			assertTrue(data2.getPrice() == 771.82	);
+			assertTrue(data2.getName() == "Alphabet Inc.");
+			assertTrue(data3.getPrice() == 104.22);
+			assertTrue(data3.getName() == "The Walt Disney Company");
 		}	
 		catch(Exception exception) {
 			fail();

@@ -29,6 +29,8 @@ public class StockData {
 	private Double psChange;
 	private String sector;
 	private Double oneYearTarget;
+	private Double beginPrice;
+	private Double diffToTarget;
 	
 	public double getPrice() {
 		return price;
@@ -141,6 +143,18 @@ public class StockData {
 		this.oneYearTarget = target;
 	}
 	
+	public Double getBeginPrice() {
+		return beginPrice;
+	}
+	public void setBeginPrice(Double beginPrice) {
+		this.beginPrice = beginPrice;
+	}
+	public Double getDiffToTarget() {
+		return diffToTarget;
+	}
+	public void setDiffToTarget(Double diffToTarget) {
+		this.diffToTarget = diffToTarget;
+	}
 	@Override
 	public String toString() {
 		return new StringBuffer("Name: ").append(this.name).append("Synmbol: ").append(this.symbol).toString();

@@ -60,35 +60,72 @@ public class SpStockDataImporter {
 	 * @param symbols: symbols of the stocks.
 	 * @return stock data
 	 */
-	public List<StockData> getYearBegings(String[] symbols) {
-		List<StockData> list = new ArrayList<>();
-		
-		Calendar from = Calendar.getInstance();
-		from.add(Calendar.YEAR, -1);
-		from.set(Calendar.MONTH, Calendar.DECEMBER);
-		from.set(Calendar.DAY_OF_MONTH, 29);
-		Calendar to = Calendar.getInstance();
-		to.set(Calendar.MONTH, Calendar.JANUARY);
-		to.set(Calendar.DAY_OF_MONTH, 1);
+	// This method works, just not need anymore.
+//	public List<StockData> getYearBegings(String[] symbols) {
+//		List<StockData> list = new ArrayList<>();
+//		
+//		Calendar from = Calendar.getInstance();
+//		from.add(Calendar.YEAR, -1);
+//		from.set(Calendar.MONTH, Calendar.DECEMBER);
+//		from.set(Calendar.DAY_OF_MONTH, 29);
+//		Calendar to = Calendar.getInstance();
+//		to.set(Calendar.MONTH, Calendar.JANUARY);
+//		to.set(Calendar.DAY_OF_MONTH, 1);
+//		
+//		try {
+//			Map<String, Stock> stocks = YahooFinance.get(symbols, from, to, Interval.DAILY); 
+////			Stock stock = YahooFinance.get("FB", true); 
+////			List<HistoricalQuote> history = stock.getHistory();
+//			for (Map.Entry<String, Stock> item : stocks.entrySet()){
+//				StockData stockData = new StockData();
+//				List<HistoricalQuote> histyQuotes = item.getValue().getHistory();
+//				
+//				stockToStockData(item.getKey(), item.getValue(), stockData);
+//				stockData.setPrice(histyQuotes.get(0).getClose().setScale(2, RoundingMode.HALF_UP).doubleValue());
+//				list.add(stockData);
+//			}
+//		}
+//		catch(IOException e) {
+//			LOGGER.log(Level.SEVERE, "Error at getting year begin data");
+//		}
+//		
+//		return list;
+//	}
+	
+	public StockData getPrevouseClose(String symbol) {
+		Stock stock = null;
+		StockData stockData = new StockData();
 		
 		try {
-			Map<String, Stock> stocks = YahooFinance.get(symbols, from, to, Interval.DAILY); 
-//			Stock stock = YahooFinance.get("FB", true); 
-//			List<HistoricalQuote> history = stock.getHistory();
-			for (Map.Entry<String, Stock> item : stocks.entrySet()){
-				StockData stockData = new StockData();
-				List<HistoricalQuote> histyQuotes = item.getValue().getHistory();
-				
-				stockToStockData(item.getKey(), item.getValue(), stockData);
-				stockData.setPrice(histyQuotes.get(0).getClose().setScale(2, RoundingMode.HALF_UP).doubleValue());
-				list.add(stockData);
-			}
+			stock = YahooFinance.get(symbol);
+			
+			stockToStockData(symbol, stock, stockData);
+			stockData.setPrice(stock.getQuote().getPreviousClose().setScale(2, RoundingMode.HALF_UP).doubleValue());
 		}
 		catch(IOException e) {
 			LOGGER.log(Level.SEVERE, "Error at getting year begin data");
 		}
 		
-		return list;
+		return stockData;
+	}
+	
+	public StockData getYearBegings(String symbol, Calendar from, Calendar to) {
+		Stock stock = null;
+		StockData stockData = new StockData();
+		
+		try {
+			stock = YahooFinance.get(symbol, from, to, Interval.DAILY);
+			
+			List<HistoricalQuote> histyQuotes = stock.getHistory();
+			
+			stockToStockData(symbol, stock, stockData);
+			stockData.setPrice(stock.getQuote().getPreviousClose().setScale(2, RoundingMode.HALF_UP).doubleValue());
+		}
+		catch(IOException e) {
+			LOGGER.log(Level.SEVERE, "Error at getting year begin data");
+		}
+		
+		return stockData;
 	}
 	
 	private void stockToStockData(String symbol, Stock stock, StockData stockData) {

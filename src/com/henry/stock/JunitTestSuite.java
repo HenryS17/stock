@@ -9,7 +9,8 @@ import org.junit.runners.Suite;
 //	ReadListTest.class,
 	//SpStockDataImporterTest.class,
 	//StockJDBCTemplateTest.class
-	stockserviceTest.class
+//	stockserviceTest.class,
+	StockJDBCTemplateTest.class
 })
 
 public class JunitTestSuite {

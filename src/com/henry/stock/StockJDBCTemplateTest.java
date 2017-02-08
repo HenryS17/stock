@@ -2,14 +2,17 @@ package com.henry.stock;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class StockJDBCTemplateTest {
 	
-	@Test
-	public void test() {
+	//@Test
+	public void testGetData() {
 		try {
 			ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("stockJDBCTemplate");
@@ -35,5 +38,19 @@ public class StockJDBCTemplateTest {
 		}
 		
 	}
-
+	@Test
+	public void testUpdateData() {
+		try {
+			 String SQL = "select * from sp500.stock where symbol='FB'";
+			 ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+  		     StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("stockJDBCTemplate");
+			 
+			 SpStockDataImporter dataImporter = new SpStockDataImporter();
+			 StockData stockData = jdbcTemplate.getJDBCTempalte().queryForObject(SQL, new StockDataMap());
+			 jdbcTemplate.update(stockData, dataImporter);
+		}
+		catch (Exception e) {			
+			fail();
+		}
+	}
 }
