@@ -38,6 +38,7 @@ public class StockJDBCTemplateTest {
 		}
 		
 	}
+	
 	@Test
 	public void testUpdateData() {
 		try {

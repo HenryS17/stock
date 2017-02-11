@@ -2,14 +2,16 @@ package com.henry.stock;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+import javax.json.*;
 
 @Path("/stockservice")
 public class stockservice {
@@ -18,7 +20,7 @@ public class stockservice {
 	@GET
 	@Path("/topten")
 	@Produces(MediaType.APPLICATION_JSON)	
-	public StockData getTopTen() {
+	public JsonArray getTopTen() {
 		//public StockData getTopTen() {
 		StockData stock = new StockData();
 		

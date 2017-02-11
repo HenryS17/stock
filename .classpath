@@ -46,13 +46,15 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/YahooFinanceAPI-3.5.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/YahooFinanceAPI-3.5.0-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/YahooFinanceAPI-3.5.0.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-core-4.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-jdbc-4.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-beans-4.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-tx-4.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-context-4.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/JUnit/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="D:/HenryCode/Java/spring-framework-4.3.5.RELEASE/libs/spring-expression-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-core-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-expression-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-jdbc-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.json.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

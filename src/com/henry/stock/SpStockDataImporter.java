@@ -119,7 +119,8 @@ public class SpStockDataImporter {
 			List<HistoricalQuote> histyQuotes = stock.getHistory();
 			
 			stockToStockData(symbol, stock, stockData);
-			stockData.setPrice(stock.getQuote().getPreviousClose().setScale(2, RoundingMode.HALF_UP).doubleValue());
+			stockData.setPrice(histyQuotes.get(0).getClose().setScale(2, RoundingMode.HALF_UP).doubleValue());
+			stockData.setBeginPrice(stockData.getPrice());
 		}
 		catch(IOException e) {
 			LOGGER.log(Level.SEVERE, "Error at getting year begin data");

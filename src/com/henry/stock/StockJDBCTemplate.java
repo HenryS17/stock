@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,7 +33,7 @@ public class StockJDBCTemplate implements DataDao {
 	// Insert a new record
 	public void create(StockData stockData) {
 		try {
-			 String SQL = "INSERT INTO stock (Symbol, Name, Price, BeginPrice, PE, PEG, PriceToBook, ROE, EPS, PRiceToSale, Volumn, Sector, OneYearTarget) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			 String SQL = "INSERT INTO stock (Symbol, Name, Price, BeginPrice, PE, PEG, PriceToBook, ROE, EPS, PriceToSale, Volumn, Sector, OneYearTarget) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			 jdbcTemplateObject.update( SQL, stockData.getSymbol(), stockData.getName(), stockData.getPrice(), stockData.getPrice(), stockData.getPe(),
 					 stockData.getPeg(), stockData.getPriceToBook(), stockData.getRoe(), stockData.getEps(), stockData.getPriceToSale(),
 					 stockData.getVolumn(), stockData.getSector(), stockData.getOneYearTarget());	
@@ -40,11 +41,12 @@ public class StockJDBCTemplate implements DataDao {
 		catch(Exception e) {
 			System.out.println(e.toString());
 		}
-	}
-   
+	}   
+	
 	public void update(StockData beginStockData, SpStockDataImporter dataImporter) {
 		StockData newData = dataImporter.getPrevouseClose(beginStockData.getSymbol());
 		
+		newData.setPriceChange((newData.getPrice() - beginStockData.getPrice())/beginStockData.getPe());
 		newData.setPeChange((newData.getPe() - beginStockData.getPe())/beginStockData.getPe());
 		newData.setPegChange((newData.getPeg() - beginStockData.getPeg())/beginStockData.getPeg());
 		newData.setPbChange((newData.getPriceToBook() - beginStockData.getPriceToBook())/beginStockData.getPriceToBook());
@@ -58,6 +60,13 @@ public class StockJDBCTemplate implements DataDao {
 				 newData.getPeChange(), newData.getPegChange(), newData.getPbChange(), newData.getEpsChange(), newData.getPsChange(),
 				 newData.getDiffToTarget());
 		 
+	}
+	
+	public List<StockData> getTopTen() {
+		List<StockData> result = new ArrayList<>();
+		
+		String SQL = "SELECT * FROM stock ORDER BY(Symbol, Name, Price, BeginPrice, PE, PEG, PriceToBook, ROE, EPS, PRiceToSale, Volumn, Sector, OneYearTarget) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		return result;
 	}
 	
 	// Reset all records, remove current data from DB, and read SP 500 list file and get their data and fill DB.
