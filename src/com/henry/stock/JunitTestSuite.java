@@ -11,6 +11,7 @@ import org.junit.runners.Suite;
 	//StockJDBCTemplateTest.class
 //	stockserviceTest.class,
 	StockJDBCTemplateTest.class
+//	stockserviceTest.class
 })
 
 public class JunitTestSuite {

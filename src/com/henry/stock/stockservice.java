@@ -1,5 +1,8 @@
 package com.henry.stock;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.PathParam; 
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,28 +24,75 @@ public class stockservice {
 	@GET
 	@Path("/topten")
 	@Produces(MediaType.APPLICATION_JSON)	
-	public JsonArray getTopTen() {
-		//public StockData getTopTen() {
-		StockData stock = new StockData();
+	public String getTopTen() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+	    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("stockJDBCTemplate");
+	    
+	    List<StockData> list = jdbcTemplate.getTopTen();
 		
-	//	try {
-//		LocalDate date = LocalDate.now();
-//		
-//		stock.setDate(date);
-		stock.setName("Facebook");
-//		stock.setPe(1.2f);
-//		stock.setPrice(100.1f);
-		stock.setSymbol("FB");
-	//	}
-//		catch (Exception e){
-//			DebugExceptionMapper de = new DebugExceptionMapper();
-//			
-//			de.toResponse(e);
-//		}
+		JsonArrayBuilder arraryBuilder = Json.createArrayBuilder();
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+		
+		for (StockData stock : list) {
+			jsonBuilder.add("name", stock.getName());
+			jsonBuilder.add("symbol", stock.getSymbol());
+			jsonBuilder.add("return%", stock.getPriceChange()*100);
+			jsonBuilder.add("sector", stock.getSector());
+			arraryBuilder.add(jsonBuilder);
+		}
+				 
+		return arraryBuilder.build().toString();
+	}
 	
-	//	System.out.println(stock.toString());
-		LOGGER.log(Level.INFO, stock.toString());
-		return stock;
+	@GET
+	@Path("/bottomten")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public String getBottomTen() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+	    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("stockJDBCTemplate");
+	    
+	    List<StockData> list = jdbcTemplate.getBottomTen();
+		
+		JsonArrayBuilder arraryBuilder = Json.createArrayBuilder();
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
+		
+		for (StockData stock : list) {
+			jsonBuilder.add("name", stock.getName());
+			jsonBuilder.add("symbol", stock.getSymbol());
+			jsonBuilder.add("ytd return%", stock.getPriceChange());
+			jsonBuilder.add("sector", stock.getSector());
+			arraryBuilder.add(jsonBuilder);
+		}
+				 
+		return arraryBuilder.build().toString();
+	}
+	
+	@GET
+	@Path("/stock/{symbol}")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public String getStock(@PathParam("symbol") String symbol) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+	    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("stockJDBCTemplate");
+	    
+	    StockData stock = jdbcTemplate.getStock(symbol);
+
+		SpStockDataImporter dataImporter = new SpStockDataImporter();
+		BigDecimal curPrice = dataImporter.getCurrentPrice(symbol);
+		
+		JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();		
+		
+		jsonBuilder.add("name", stock.getName());
+		jsonBuilder.add("symbol", stock.getSymbol());
+		jsonBuilder.add("price", curPrice);
+		jsonBuilder.add("previous close", stock.getPrice());
+		jsonBuilder.add("previous close ytd return%", stock.getPriceChange()*100);
+//		jsonBuilder.add("ytd return%", (curPrice - stock.getBeginPrice())/stock.getBeginPrice()*100);
+//		jsonBuilder.add("previous close return%", stock.getPriceChange()*100);
+//		jsonBuilder.add("previous close return%", stock.getPriceChange()*100);
+//		jsonBuilder.add("previous close return%", stock.getPriceChange()*100);
+//		jsonBuilder.add("sector", stock.getSector());
+				 
+		return jsonBuilder.build().toString();
 	}
 	
 	// My secret post action to reset all data at the beginning of the year.

@@ -19,19 +19,21 @@ import yahoofinance.quotes.stock.StockStats;
 
 // APIs from http://financequotes-api.com/
 public class SpStockDataImporter {
-	private static final Logger LOGGER = Logger.getLogger(SpStockDataImporter.class.getName());
-
-	public List<StockData> getTopTen() {
-		String[] symbols = new String[6];
-		symbols[0] = "FB";
-		symbols[1] = "V";
-		symbols[2] = "GILD";
-		symbols[3] = "TRI";
-		symbols[4] = "VMC";
-		symbols[5] = "KR";
-		return (getStocks(symbols));
-	}
+	private static final Logger LOGGER = Logger.getLogger(SpStockDataImporter.class.getName());	
 	
+	public BigDecimal getCurrentPrice(String symbol) {		
+		
+		try {
+			Stock stock = YahooFinance.get(symbol);
+			
+			return (stock.getQuote().getPrice());
+		}
+		catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return new BigDecimal(0.0);
+	}
 	public List<StockData> getStocks(String[] symbols) {
 		List<StockData> list = new ArrayList<>();
 		
@@ -100,7 +102,7 @@ public class SpStockDataImporter {
 			stock = YahooFinance.get(symbol);
 			
 			stockToStockData(symbol, stock, stockData);
-			stockData.setPrice(stock.getQuote().getPreviousClose().setScale(2, RoundingMode.HALF_UP).doubleValue());
+			stockData.setPrice(stock.getQuote().getPrice().setScale(2, RoundingMode.HALF_UP).doubleValue());
 		}
 		catch(IOException e) {
 			LOGGER.log(Level.SEVERE, "Error at getting year begin data");
