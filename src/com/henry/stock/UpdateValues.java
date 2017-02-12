@@ -16,7 +16,7 @@ public class UpdateValues  implements Runnable {
     public void run() {
 		try {
 			String time = LocalDate.now().toString();
-			LOGGER.log(Level.INFO, time);
+			LOGGER.log(Level.INFO, "UpdateValues at: {0}", time);
 			
 			ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("StockJDBCTemplate");
