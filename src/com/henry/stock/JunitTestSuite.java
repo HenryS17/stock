@@ -6,12 +6,12 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-//	ReadListTest.class,
-	//SpStockDataImporterTest.class,
-	//StockJDBCTemplateTest.class
-//	stockserviceTest.class,
+
+	stockserviceTest.class,
+	ReadListTest.class,
+	SpStockDataImporterTest.class,
+	StockJDBCTemplateTest.class,
 	StockJDBCTemplateTest.class
-//	stockserviceTest.class
 })
 
 public class JunitTestSuite {

@@ -19,14 +19,16 @@ public class UpdateValues  implements Runnable {
 			LOGGER.log(Level.INFO, "UpdateValues at: {0}", time);
 			
 			ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-		    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("StockJDBCTemplate");
+		    StockJDBCTemplate jdbcTemplate =  (StockJDBCTemplate)context.getBean("stockJDBCTemplate");
 		    jdbcTemplate.updateAll(); 
 		}
 		catch (BeansException e) {
-			
+			LOGGER.log(Level.SEVERE, "BeansException when UpdateValues");
+			LOGGER.log(Level.INFO, e.toString());
 		}
 		catch(Exception e) {
-		
+			LOGGER.log(Level.SEVERE, "Exception when UpdateValues");
+			LOGGER.log(Level.INFO, e.toString());
 		}
     }
 }

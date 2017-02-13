@@ -18,7 +18,7 @@ public class BackgroundJobManager implements ServletContextListener {
 	 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {		
-		Long midnight=LocalDateTime.now().until(LocalDate.now().plusDays(1).atStartOfDay(), ChronoUnit.MINUTES);
+		Long midnight=LocalDateTime.now().until(LocalDate.now().plusDays(1).atStartOfDay(), ChronoUnit.MINUTES) + 15;
 		
 		scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new UpdateValues(), midnight, 1440, TimeUnit.MINUTES);

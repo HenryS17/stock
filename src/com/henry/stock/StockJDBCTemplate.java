@@ -199,7 +199,8 @@ public class StockJDBCTemplate implements DataDao {
 			 }
 		}
 		catch(Exception e) {
-			System.out.println(e.toString());
+			LOGGER.log(Level.SEVERE, "Failure to read file or data");
+			LOGGER.log(Level.INFO, e.toString());
 		}
 	}
 	
